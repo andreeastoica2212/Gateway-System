@@ -1,0 +1,92 @@
+ARDUINO IDE#include<RF24.h>
+
+#define PIN_CE  4
+#define PIN_CSN 2
+
+uint8_t pipeNumber;
+uint8_t payloadSize;
+
+const uint64_t pipeNum = 0x7878787878LL;
+
+RF24 radio(PIN_CE, PIN_CSN);
+
+int trigPin = 6;
+int echoPin = 7;
+long duration, dist, average;
+long aver[3];   //array for average
+
+void setup() {
+
+  Serial.begin(115200);
+  bool var = radio.begin();
+  if (var)
+    Serial.print("Ok radio begin!");
+  else
+    Serial.print("radio begin nu e ok!");
+
+  radio.setChannel(5);
+  radio.setDataRate (RF24_1MBPS);
+  radio.setPALevel(RF24_PA_HIGH);
+  radio.enableDynamicPayloads();
+
+  radio.openWritingPipe(pipeNum);
+
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+}
+
+void measure() {
+  digitalWrite(10, HIGH);
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(5);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(15);
+  digitalWrite(trigPin, LOW);
+  pinMode(echoPin, INPUT);
+  duration = pulseIn(echoPin, HIGH);
+  dist = (duration / 2) / 29.1;  //obtain distance
+}
+
+char text1[] = "Senzorul a detectat o prezenta!";
+char text0[] = "Nu este nimic in fata senzorului!";
+
+void loop() 
+{
+  int k;
+  for (int i = 0; i <= 2; i++) { //average distance
+    measure();
+    aver[i] = dist;
+    delay(10);              //delay between measurements
+  }
+  dist = (aver[0] + aver[1] + aver[2]) / 3;
+
+  if ( dist < 10 ) 
+  {
+    k=1;
+    Serial.println("E ceva!");
+  }
+  else
+  {
+    k=0;
+    Serial.println("Nu e nimic!");
+  }
+  Serial.println(dist);
+
+  if (k==0)
+  {
+    if (radio.write(&text0, sizeof(text0))) 
+      Serial.println("Delivered " + String(sizeof(text0)) + " byte");
+    else 
+      Serial.println("Data not delivered");
+  }
+  else
+  {
+    if (radio.write(&text1, sizeof(text1))) 
+      Serial.println("Delivered " + String(sizeof(text1)) + " byte");
+    else 
+      Serial.println("Data not delivered");
+  }
+  
+  delay(3000);
+
+}

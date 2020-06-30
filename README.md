@@ -6,3 +6,5 @@ The Wi-Fi communication is established with a WeMos board that has a temperature
 The nRF communication is established betweeen the Raspberry Pi (with a nRF module connected) which acts as a receiver and an Arduino (that also has an nRF module connected) to which I connected a proximity sensor (HC-SR04). The sensor sends a "presence detected" message to the terminal of the Raspberry Pi when it detects something.
 
 The Raspberry Pi acts as a gateway for the 3 sensors presented.
+
+You can read the documentation for extra details or watch this youtube video: https://www.youtube.com/watch?v=gIFXpY-_oZo&t=17s

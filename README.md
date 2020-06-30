@@ -1,5 +1,5 @@
 # gateway
-This project is a gateway system implemented on a Raspberry Pi 4 that uses Wi-Fi and nRF technologies for collecting data from 3 different senzors. 
+This project is a gateway system implemented on a Raspberry Pi 4 that uses Wi-Fi and nRF (radio waves) technologies for collecting data from 3 different senzors. 
 
 The Wi-Fi communication is established with a WeMos board that has a temperature sensor connected to it (DS18B20) and a ESP8266 based module with a water level sensor. Both of the devices use the HTTP protocol to send data to a database located on the Raspberry. The data is displayed in a php page that comes from the Raspberry Pi which acts as a web server.
 

@@ -8,7 +8,7 @@ Servo Servo1;
 
 // Update these with values suitable for your network.
 const char* ssid = "TP-Link_DFA1";
-const char* password = "curcubeu420";
+const char* password = "curcubeu123";
 const char* mqtt_server = "192.168.0.104";
 
 WiFiClient espClient;

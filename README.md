@@ -7,4 +7,4 @@ The nRF communication is established betweeen the Raspberry Pi (with a nRF modul
 
 The Raspberry Pi acts as a gateway for the 3 sensors presented.
 
-You can read the documentation for extra details or watch this youtube video: https://www.youtube.com/watch?v=gIFXpY-_oZo&t=17s
+You can watch this youtube video that is a description of the project: https://www.youtube.com/watch?v=gIFXpY-_oZo&t=17s
